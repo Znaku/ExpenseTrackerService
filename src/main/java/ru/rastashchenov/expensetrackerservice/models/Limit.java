@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Limit {
     private Long id;
     @Min(value = 0, message = "Limit sum must be greater than or equal 0")
     private BigDecimal limitSum;
+    @NotNull(message = "Remaining month limit can't be empty")
     private BigDecimal remainingMonthLimit;
     private LocalDateTime limitDateTime;
     @NotBlank(message = "Limit currency shortname can't be empty")
