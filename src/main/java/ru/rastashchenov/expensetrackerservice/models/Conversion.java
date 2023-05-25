@@ -12,7 +12,6 @@ import java.util.UUID;
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(name = "conversions")
 public class Conversion {
 
     @Id

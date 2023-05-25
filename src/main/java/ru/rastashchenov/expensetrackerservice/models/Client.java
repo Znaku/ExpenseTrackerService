@@ -15,7 +15,6 @@ import java.util.List;
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(name = "clients")
 public class Client {
 
     @Id

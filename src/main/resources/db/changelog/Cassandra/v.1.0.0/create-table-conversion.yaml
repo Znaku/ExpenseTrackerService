@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_tables
+      author: znaku
+      changes:
+        - createTable:
+            tableName: conversion
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: true
+              - column:
+                  name: rate
+                  type: decimal
+              - column:
+                  name: rate_on_previous_close
+                  type: decimal
+              - column:
+                  name: made_at
+                  type: datetime
+              - column:
+                  name: symbol
+                  type: varchar(255)

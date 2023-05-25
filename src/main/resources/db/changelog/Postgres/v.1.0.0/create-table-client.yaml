@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_tables
+      author: znaku
+      changes:
+        - createTable:
+            tableName: client
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: bank_account_number
+                  type: varchar(255)

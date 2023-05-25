@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_tables
+      author: znaku
+      changes:
+        - createTable:
+            tableName: limit
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: limit_sum
+                  type: decimal
+              - column:
+                  name: remaining_month_limit
+                  type: decimal
+              - column:
+                  name: limit_date_time
+                  type: datetime
+              - column:
+                  name: limit_currency_shortname
+                  type: varchar(255)
+              - column:
+                  name: limit_expense_category
+                  type: varchar(255)
+              - column:
+                  name: limit_client
+                  type: varchar(255)

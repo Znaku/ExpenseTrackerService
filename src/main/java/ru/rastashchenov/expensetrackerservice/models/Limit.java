@@ -14,7 +14,6 @@ import java.util.List;
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(name = "limits")
 public class Limit {
 
     @Id
