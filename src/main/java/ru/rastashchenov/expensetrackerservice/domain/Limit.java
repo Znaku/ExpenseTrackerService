@@ -1,4 +1,4 @@
-package ru.rastashchenov.expensetrackerservice.models;
+package ru.rastashchenov.expensetrackerservice.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

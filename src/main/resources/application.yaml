@@ -1,16 +1,30 @@
-spring:
-  datasource:
+datasource:
+  dbone:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/ExpenseTrackerService
     username: sa
     password:
 
-  liquibase:
-    change-log: classpath:db/changelog/db1.changelog-master.yaml
+  dbtwo:
+    keyspace-name: znaku_keyspace
+    contact-points: localhost
+    port: 9042
+    schema-action: create_if_not_exists
 
+spring:
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show_sql: true
+
+liquibase:
+  enabled: false
+  change-log: classpath:db/changelog/db1.changelog-master.yaml
+  contexts: development, production
+  default-schema: public
+  dataSource: primary
+  url: jdbc:postgresql://localhost:5432/ExpenseTrackerService
+  user: sa
+  password:
 

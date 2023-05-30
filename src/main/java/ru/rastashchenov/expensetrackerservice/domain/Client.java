@@ -1,4 +1,4 @@
-package ru.rastashchenov.expensetrackerservice.models;
+package ru.rastashchenov.expensetrackerservice.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -6,7 +6,6 @@ import lombok.experimental.Accessors;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
