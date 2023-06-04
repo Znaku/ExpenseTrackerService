@@ -58,7 +58,7 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
 
     @Override
     public String[] getEntityBasePackages() {
-        return new String[] {"com.arya.cassandra.model"};
+        return new String[] {"ru.rastashchenov.expensetrackerservice.domain.dbtwo"};
     }
 
 }
