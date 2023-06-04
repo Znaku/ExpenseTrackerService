@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_tables
+      author: znaku
+      changes:
+        - createTable:
+            tableName: transaction
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: account_from
+                  type: varchar(10)
+              - column:
+                  name: account_to
+                  type: varchar(10)
+              - column:
+                  name: sum
+                  type: decimal
+              - column:
+                  name: currency_shortname
+                  type: varchar(255)
+              - column:
+                  name: expense_category
+                  type: varchar(255)
+              - column:
+                  name: datetime
+                  type: datetime
+              - column:
+                  name: transaction_client
+                  type: bigint
+              - column:
+                  name: transaction_limit
+                  type: bigint
+              - column:
+                  name: limit_exceeded
+                  type: datetime
+

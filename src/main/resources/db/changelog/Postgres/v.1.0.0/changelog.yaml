@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: create-table-client.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: create-table-limit.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: create-table-transaction.yaml
+      relativeToChangelogFile: true
