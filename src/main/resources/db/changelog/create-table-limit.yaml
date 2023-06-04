@@ -20,7 +20,7 @@ databaseChangeLog:
                   type: decimal
               - column:
                   name: limit_date_time
-                  type: datetime
+                  type: timestamp
               - column:
                   name: limit_currency_shortname
                   type: varchar(255)
@@ -30,3 +30,8 @@ databaseChangeLog:
               - column:
                   name: limit_client
                   type: varchar(255)
+        - createSequence:
+            sequenceName: limit_seq
+            incrementBy: 1
+            maxValue: 1000
+            startValue: 1

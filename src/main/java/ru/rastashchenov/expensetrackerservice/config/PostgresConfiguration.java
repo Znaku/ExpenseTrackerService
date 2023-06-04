@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -15,16 +16,16 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @EnableJpaRepositories(
-        entityManagerFactoryRef = DatabaseOneConfig.ENTITY_MANAGER_FACTORY,
-        transactionManagerRef = DatabaseOneConfig.TRANSACTION_MANAGER,
-        basePackages = DatabaseOneConfig.JPA_REPOSITORY_PACKAGE
+        entityManagerFactoryRef = PostgresConfiguration.ENTITY_MANAGER_FACTORY,
+        transactionManagerRef = PostgresConfiguration.TRANSACTION_MANAGER,
+        basePackages = PostgresConfiguration.JPA_REPOSITORY_PACKAGE
 )
 @Configuration
-public class DatabaseOneConfig {
+public class PostgresConfiguration {
 
-    public static final String PROPERTY_PREFIX = "spring.dbone.datasource";
+    public static final String PROPERTY_PREFIX = "spring.datasource";
     public static final String JPA_REPOSITORY_PACKAGE = "ru.rastashchenov.expensetrackerservice.repository.dbone";
-    public static final String ENTITY_PACKAGE = "ru.rastashchenov.expensetrackerservice.domain.entity.dbone";
+    public static final String ENTITY_PACKAGE = "ru.rastashchenov.expensetrackerservice.domain.dbone";
     public static final String ENTITY_MANAGER_FACTORY = "oneEntityManagerFactory";
     public static final String DATA_SOURCE = "oneDataSource";
     public static final String DATABASE_PROPERTY = "oneDatabaseProperty";
@@ -37,6 +38,7 @@ public class DatabaseOneConfig {
     }
 
     @Bean(DATA_SOURCE)
+    @Primary
     public DataSource appDataSource(
             @Qualifier(DATABASE_PROPERTY) DatabaseProperty databaseProperty
     ) {

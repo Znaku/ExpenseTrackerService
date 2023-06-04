@@ -1,4 +1,4 @@
-package ru.rastashchenov.expensetrackerservice.domain;
+package ru.rastashchenov.expensetrackerservice.domain.dbone;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -17,18 +17,29 @@ import java.util.List;
 public class Limit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "limitSeq")
+    @SequenceGenerator(name = "limitSeq", sequenceName = "limit_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
-    @Min(value = 0, message = "Limit sum must be greater than or equal 0")
+
+    @Column(name = "limit_sum")
     private BigDecimal limitSum;
-    @NotNull(message = "Remaining month limit can't be empty")
+
+    @Column(name = "remaining_month_limit")
     private BigDecimal remainingMonthLimit;
+
+    @Column(name = "limit_date_time")
     private LocalDateTime limitDateTime;
-    @NotBlank(message = "Limit currency shortname can't be empty")
+
+    @Column(name = "limit_currency_shortname")
     private String limitCurrencyShortname;
-    @NotBlank(message = "Limit expense category can't be empty")
+
+    @Column(name = "limit_expense_category")
     private String limitExpenseCategory;
+
+    @Column(name = "limit_client")
     private Long limitClient;
+
     @OneToMany(mappedBy = "id")
     private List<Transaction> limitTransactions;
 

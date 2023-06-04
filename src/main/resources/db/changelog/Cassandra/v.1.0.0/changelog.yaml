@@ -1,4 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: create-table-conversion.yaml
-      relativeToChangelogFile: true

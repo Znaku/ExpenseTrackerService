@@ -1,4 +1,4 @@
-package ru.rastashchenov.expensetrackerservice.domain;
+package ru.rastashchenov.expensetrackerservice.domain.dbone;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -18,24 +18,36 @@ import java.time.LocalDateTime;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transactionSeq")
+    @SequenceGenerator(name = "transactionSeq", sequenceName = "transaction_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
-    @NotNull
-    @Pattern(regexp="^\\d{10}$", message="Account should contain 10 digits.")
+
+    @Column(name = "account_from")
     private String accountFrom;
-    @NotNull
-    @Pattern(regexp="^\\d{10}$", message="Account should contain 10 digits.")
+
+    @Column(name = "account_to")
     private String accountTo;
-    @Min(value = 0, message = "Sum must be greater than or equal to 0")
+
+    @Column(name = "sum")
     private BigDecimal sum;
-    @NotBlank(message = "Currency shortname can't be empty")
+
+    @Column(name = "currency_shortname")
     private String currencyShortname;
-    @NotBlank(message = "Expense category can't be empty")
+
+    @Column(name = "expense_category")
     private String expenseCategory;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime datetime;
+
+    @Column(name = "created")
+    private LocalDateTime created;
+
+    @Column(name = "transaction_client")
     private Long transactionClient;
+
+    @Column(name = "transaction_limit")
     private Long transactionLimit;
-    private Long limitExceeded;
+
+    @Column(name = "limit_exceeded")
+    private boolean limitExceeded;
 
 }

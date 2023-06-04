@@ -28,8 +28,8 @@ databaseChangeLog:
                   name: expense_category
                   type: varchar(255)
               - column:
-                  name: datetime
-                  type: datetime
+                  name: created
+                  type: timestamp
               - column:
                   name: transaction_client
                   type: bigint
@@ -38,5 +38,10 @@ databaseChangeLog:
                   type: bigint
               - column:
                   name: limit_exceeded
-                  type: datetime
+                  type: boolean
+        - createSequence:
+            sequenceName: transaction_seq
+            incrementBy: 1
+            maxValue: 1000
+            startValue: 1
 
