@@ -1,4 +1,4 @@
 databaseChangeLog:
   - include:
-      file: Postgres/v.1.0.0/changelog.yaml
+      file: changelog.yaml
       relativeToChangelogFile: true

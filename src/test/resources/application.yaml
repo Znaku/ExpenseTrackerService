@@ -2,7 +2,8 @@ application:
   main-currency: "USD"
   additional-currencies: "RUB, KZT"
   exchange-rate-api-service:
-    url: "https://api.twelvedata.com"
+#    url: "https://api.twelvedata.com"
+    url: "http://localhost:9500"
     apikey: "68ad2abcea024b089a2f0e9167a51585"
 
 spring:
@@ -39,3 +40,4 @@ liquibase:
   enabled: true
   change-log: classpath:db/changelog/db.changelog-master.yaml
   contexts: development, production
+
