@@ -2,32 +2,34 @@ package ru.rastashchenov.expensetrackerservice;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.rastashchenov.expensetrackerservice.domain.dbone.Client;
 import ru.rastashchenov.expensetrackerservice.domain.dbone.Limit;
 import ru.rastashchenov.expensetrackerservice.domain.dbone.Transaction;
 import ru.rastashchenov.expensetrackerservice.domain.dbtwo.Conversion;
+import ru.rastashchenov.expensetrackerservice.feign.client.ExchangeRateApiClient;
+import ru.rastashchenov.expensetrackerservice.feign.rest.response.EndOfDayPrice;
+import ru.rastashchenov.expensetrackerservice.feign.rest.response.ExchangeRate;
+import ru.rastashchenov.expensetrackerservice.feign.servise.ExchangeRateService;
 import ru.rastashchenov.expensetrackerservice.repository.dbone.ClientRepository;
 import ru.rastashchenov.expensetrackerservice.repository.dbone.LimitRepository;
 import ru.rastashchenov.expensetrackerservice.repository.dbone.TransactionRepository;
-import ru.rastashchenov.expensetrackerservice.repository.dbtwo.ConversionRepository;
-
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
-@DataJpaTest
+@SpringBootTest
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-//@SpringBootTest
+
 public class ExpenseTrackerServiceApplicationTests {
 
 	@Autowired
@@ -39,8 +41,14 @@ public class ExpenseTrackerServiceApplicationTests {
 	@Autowired
 	private TransactionRepository transactionRepository;
 
+	//@Autowired
+	//private ConversionRepository conversionRepository;
+
 	@Autowired
-	private ConversionRepository conversionRepository;
+	private ExchangeRateApiClient exchangeRateApiClient;
+
+	@Autowired
+	private ExchangeRateService exchangeRateService;
 
 	@Test
 	public void setClientRepositoryTest() {
@@ -98,17 +106,45 @@ public class ExpenseTrackerServiceApplicationTests {
 		Conversion conversion = new Conversion();
 		conversion.setRate(BigDecimal.valueOf(105.12))
 				.setRateOnPreviousClose(BigDecimal.valueOf(100.00))
-				.setMadeAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong("1602714051")), ZoneId.systemDefault()))
+				.setMadeAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong("1602714051")), ZoneId.systemDefault()).toLocalDate())
 				.setSymbol("USD/JPY");
 
-		Assertions.assertNull(conversion.getId());
+		//Assertions.assertNull(conversion.getId());
 
-		conversionRepository.save(conversion);
-		Assertions.assertNotNull(conversion.getId());
+		//conversionRepository.save(conversion);
+		//Assertions.assertNotNull(conversion.getId());
+
+		//Conversion conversion1 = conversionRepository.getLast("USD/JPY");
 
 	}
+
+	@Test
+	public void testExchangeRateApiClient() {
+
+		ExchangeRate exchangeRate = exchangeRateApiClient.getExchangerate("USD/JPY", "68ad2abcea024b089a2f0e9167a51585", ZoneId.systemDefault().toString());
+		//EndOfDayPrice endOfDayPrice = exchangeRateApiClient.getEndOfDayPrice("USD/JPY", "68ad2abcea024b089a2f0e9167a51585");
+
+	}
+
+	@Test
+	public void testExchangeRateService() {
+		exchangeRateService.getAndSaveExchangeRates();
+	}
+
 	@Test
 	void contextLoads() {
+
+	}
+
+	@Test
+	void testTimezones() throws ParseException {
+
+		String dateAsString = "2023-06-17 15:17:05+01";
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ssX");
+		OffsetDateTime offsetDateTime = OffsetDateTime.parse(dateAsString, dateTimeFormatter);
+		LocalDateTime localDateTime = offsetDateTime.toLocalDateTime();
+
+
 	}
 
 }

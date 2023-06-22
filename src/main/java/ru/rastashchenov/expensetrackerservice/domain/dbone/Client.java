@@ -2,7 +2,6 @@ package ru.rastashchenov.expensetrackerservice.domain.dbone;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +9,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data

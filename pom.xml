@@ -19,6 +19,7 @@
 		<testcontainers.version>1.18.0</testcontainers.version>
 		<mapper.version>2.4.5</mapper.version>
 		<snakeyaml.version>1.33</snakeyaml.version>
+		<spring-cloud.version>2021.0.7</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,10 +29,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.liquibase</groupId>
@@ -70,14 +67,34 @@
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.1.1</version>
+		</dependency>
 	</dependencies>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.testcontainers</groupId>
 				<artifactId>testcontainers-bom</artifactId>
 				<version>${testcontainers.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -99,41 +116,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>org.liquibase</groupId>-->
-<!--				<artifactId>liquibase-maven-plugin</artifactId>-->
-<!--				<version>3.0.5</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>db1-update</id>-->
-<!--						<phase>process-resources</phase>-->
-<!--						<configuration>-->
-<!--							<changeLogFile>classpath:db/changelog/db.changelog-master.yaml</changeLogFile>-->
-<!--							<driver>org.postgresql.Driver</driver>-->
-<!--							<url>jdbc:postgresql://localhost:5432/ExpenseTrackerService</url>-->
-<!--							<username>...</username>-->
-<!--							<password>...</password>-->
-<!--						</configuration>-->
-<!--						<goals>-->
-<!--							<goal>update</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--					<execution>-->
-<!--						<id>db2-update</id>-->
-<!--						<phase>process-resources</phase>-->
-<!--						<configuration>-->
-<!--							<changeLogFile>classpath:db/changelog/db.changelog-master.yaml</changeLogFile>-->
-<!--							<driver>org.postgresql.Driver</driver>-->
-<!--							<url>jdbc:postgresql://localhost/db2</url>-->
-<!--							<username>sa</username>-->
-<!--							<password></password>-->
-<!--						</configuration>-->
-<!--						<goals>-->
-<!--							<goal>update</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
 		</plugins>
 	</build>
 

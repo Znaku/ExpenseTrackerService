@@ -1,43 +1,52 @@
 package ru.rastashchenov.expensetrackerservice.domain.dbtwo;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.UUID;
-
+import java.time.LocalDate;
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-@Data
 @Entity
+@Data
 @Accessors(chain = true)
 @Table(value = "conversion")
+@NoArgsConstructor
 public class Conversion {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
-
     @PrimaryKey
-    @Column(name = "id")
-    private UUID id;
+    @EmbeddedId
+    @Getter(value= AccessLevel.PRIVATE)
+    @Setter(value=AccessLevel.PRIVATE)
+    private ConversionKey conversionKey = new ConversionKey();
 
-    @Column(name = "rate")
+    @Column(value = "rate")
     private BigDecimal rate;
 
-    @Column(name = "rate_on_previous_close")
+    @Column(value = "rate_on_previous_close")
     private BigDecimal rateOnPreviousClose;
 
-    @Column(name = "made_at")
-    private LocalDateTime madeAt;
+    public LocalDate getMadeAt() {
+        return conversionKey.getMadeAt();
+    }
 
-    @Column(name = "symbol")
-    private String symbol;
+    public Conversion setMadeAt(LocalDate localDate) {
+        conversionKey.setMadeAt(localDate);
+        return this;
+    }
 
+    public String getSymbol() {
+        return conversionKey.getSymbol();
+    }
+
+    public Conversion setSymbol(String symbol) {
+        conversionKey.setSymbol(symbol);
+        return this;
+    }
 }

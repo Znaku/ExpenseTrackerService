@@ -10,9 +10,9 @@ USE znaku_keyspace;
 
 -- Create a table
 CREATE TABLE IF NOT EXISTS conversion (
-                                     id UUID PRIMARY KEY,
-                                     made_at timestamp,
-                                     rate bigint,
-                                     rate_on_previous_close bigint,
-                                     symbol text
-);
+                                          made_at date,
+                                          rate decimal,
+                                          rate_on_previous_close decimal,
+                                          symbol text,
+                                          PRIMARY KEY(symbol, made_at)
+) WITH CLUSTERING ORDER BY (made_at DESC);
